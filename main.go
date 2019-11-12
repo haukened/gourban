@@ -32,10 +32,10 @@ type Entry struct {
 func Query(s string) ([]Entry, error) {
 	queryURL := baseURL + url.QueryEscape(s)
 	res, err := http.Get(queryURL)
-	defer res.Body.Close()
 	if err != nil {
 		return nil, err
 	}
+	defer res.Body.Close()
 	body, err := ioutil.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
