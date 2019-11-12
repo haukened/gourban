@@ -1,5 +1,5 @@
 /*
-Pacakge gourban provides a golang interface to the urbandictionary.com API.
+Package gourban provides a golang interface to the urbandictionary.com API.
 It can be imported into your codebase and used like `gourban.Query(string)` or as a standalone go binary for fun.
 */
 package gourban
