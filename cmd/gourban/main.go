@@ -10,5 +10,5 @@ func main() {
 	if err != nil {
 		fmt.Println(err)
 	}
-	fmt.Println(test[0].Definition)
+	fmt.Printf("%s: %s\n", test[0].Word, test[0].Definition)
 }

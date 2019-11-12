@@ -1,3 +1,7 @@
+/*
+Pacakge gourban provides a golang interface to the urbandictionary.com API.
+It can be imported into your codebase and used like `gourban.Query(string)` or as a standalone go binary for fun.
+*/
 package gourban
 
 import (
@@ -10,6 +14,8 @@ import (
 
 var baseURL = "https://api.urbandictionary.com/v0/define?term="
 
+// An Entry represents a single definition from urban dictionary.  Each word can have multile entries.
+// number of up/down votes can be used to sort definitions to most (un)popular if desired.
 type Entry struct {
 	Definition string    `json:"definition"`
 	Permalink  string    `json:"permalink"`
@@ -21,6 +27,8 @@ type Entry struct {
 	Example    string    `json:"example"`
 }
 
+// Query accepts a string (one word or multiples) and is URL encoded and fed to the urbandictionary API
+// queries that do not return results return an empty slice.  Upstream errors are propogated and returned, so many types may exist.
 func Query(s string) ([]Entry, error) {
 	queryURL := baseURL + url.QueryEscape(s)
 	res, err := http.Get(queryURL)
