@@ -15,7 +15,7 @@ func main() {
     ...
     definitions := gourban.Query("yeet")
     for def := range definitions {
-        fmt.Printf("%s: %s\n", def.Word, def.Description)
+        fmt.Printf("%s: %s\n", def.Word, def.Definition)
     }
 }
 ```
