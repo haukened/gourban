@@ -9,6 +9,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 	"time"
 )
 
@@ -44,5 +45,10 @@ func Query(s string) ([]Entry, error) {
 	if err := json.Unmarshal(body, &qres); err != nil {
 		return nil, err
 	}
-	return qres["list"], nil
+	result := qres["list"]
+	for _, ent := range result {
+		ent.Definition = strings.ReplaceAll(ent.Definition, "[", "")
+		ent.Definition = strings.ReplaceAll(ent.Definition, "]", "")
+	}
+	return result, nil
 }
