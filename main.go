@@ -46,9 +46,10 @@ func Query(s string) ([]Entry, error) {
 		return nil, err
 	}
 	result := qres["list"]
-	for _, ent := range result {
+	for i, ent := range result {
 		ent.Definition = strings.ReplaceAll(ent.Definition, "[", "")
 		ent.Definition = strings.ReplaceAll(ent.Definition, "]", "")
+		result[i].Definition = ent.Definition
 	}
 	return result, nil
 }
