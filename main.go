@@ -47,12 +47,12 @@ func Query(s string) ([]Entry, error) {
 	}
 	result := qres["list"]
 	for i, ent := range result {
+		ent.Definition = strings.ReplaceAll(ent.Definition, "[", "")
+		ent.Definition = strings.ReplaceAll(ent.Definition, "]", "")
+		result[i].Definition = ent.Definition
+		ent.Example = strings.ReplaceAll(ent.Example, "[", "")
+		ent.Example = strings.ReplaceAll(ent.Example, "]", "")
+		result[i].Example = ent.Example
 	}
-	ent.Definition = strings.ReplaceAll(ent.Definition, "[", "")
-	ent.Definition = strings.ReplaceAll(ent.Definition, "]", "")
-	result[i].Definition = ent.Definition
-	ent.Example = strings.ReplaceAll(ent.Example, "[", "")
-	ent.Example = strings.ReplaceAll(ent.Example, "]", "")
-	result[i].Example = ent.Example
 	return result, nil
 }
