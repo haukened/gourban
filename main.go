@@ -6,6 +6,7 @@ package gourban
 
 import (
 	"encoding/json"
+	"errors"
 	"io/ioutil"
 	"net/http"
 	"net/url"
@@ -55,4 +56,23 @@ func Query(s string) ([]Entry, error) {
 		result[i].Example = ent.Example
 	}
 	return result, nil
+}
+
+// Top returns a single entry with the highest upvotes
+func Top(s string) (*Entry, error) {
+	results, err := Query(s)
+	if err != nil {
+		return nil, err
+	}
+	var result Entry
+	for _, ent := range results {
+		if ent.Upvotes > result.Upvotes {
+			result = ent
+		}
+	}
+	if result.Upvotes > 0 {
+		return &result, nil
+	} else {
+		return nil, errors.New("no result found")
+	}
 }
