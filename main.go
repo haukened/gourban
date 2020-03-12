@@ -48,15 +48,15 @@ func Query(s string) ([]Entry, error) {
 		return nil, err
 	}
 	result := qres["list"]
-	regex := regexp.MustCompile("\n\n")
+	regex := regexp.MustCompile("^(?:[\t ]*(?:\r?\n|\r))+")
 	for i, ent := range result {
 		ent.Definition = strings.ReplaceAll(ent.Definition, "[", "")
 		ent.Definition = strings.ReplaceAll(ent.Definition, "]", "")
-		ent.Definition = regex.ReplaceAllString(ent.Definition, "\n")
+		ent.Definition = regex.ReplaceAllString(ent.Definition, "")
 		result[i].Definition = ent.Definition
 		ent.Example = strings.ReplaceAll(ent.Example, "[", "")
 		ent.Example = strings.ReplaceAll(ent.Example, "]", "")
-		ent.Example = regex.ReplaceAllString(ent.Example, "\n")
+		ent.Example = regex.ReplaceAllString(ent.Example, "")
 		result[i].Example = ent.Example
 	}
 	return result, nil
