@@ -79,3 +79,12 @@ func Top(s string) (*Entry, error) {
 		return nil, errors.New("no result found")
 	}
 }
+
+// First returns a single entry that occurs first
+func First(s string) (*Entry, error) {
+	results, err := Query(s)
+	if err != nil {
+		return nil, err
+	}
+	return &results[0], nil
+}
