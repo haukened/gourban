@@ -10,6 +10,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"regexp"
 	"strings"
 	"time"
 )
@@ -47,12 +48,15 @@ func Query(s string) ([]Entry, error) {
 		return nil, err
 	}
 	result := qres["list"]
+	regex := regexp.MustCompile("\n\n")
 	for i, ent := range result {
 		ent.Definition = strings.ReplaceAll(ent.Definition, "[", "")
 		ent.Definition = strings.ReplaceAll(ent.Definition, "]", "")
+		ent.Definition = regex.ReplaceAllString(ent.Definition, "\n")
 		result[i].Definition = ent.Definition
 		ent.Example = strings.ReplaceAll(ent.Example, "[", "")
 		ent.Example = strings.ReplaceAll(ent.Example, "]", "")
+		ent.Example = regex.ReplaceAllString(ent.Example, "\n")
 		result[i].Example = ent.Example
 	}
 	return result, nil
